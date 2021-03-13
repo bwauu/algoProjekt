@@ -26,7 +26,7 @@ public class WeatherDataHandler {
 
 		//TODO: Structure data and put it in appropriate data structure
 		try {
-			fileData = Files.readAllLines(
+			fileData = Files.readAllLines( //Ändra här för sökväg Albin!
 					new File("C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\smhi-opendata.csv").toPath(), Charset.forName("UTF-8"));
 
 		} catch (IOException e) {
