@@ -2,12 +2,11 @@ package algo.weatherdata;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Retrieves temperature data from a weather station file.
@@ -16,27 +15,39 @@ public class WeatherDataHandler {
 
 	/**
 	 * Load weather data from file.
-	 * 
+	 *
 	 * @param filePath path to file with weather data
 	 * @throws IOException if there is a problem while reading the file
 	 * @return
 	 */
-	public Object loadData(String filePath) throws IOException {
-		List<String> fileData = Files.readAllLines(Paths.get(filePath));
+	public void loadData(String filePath) throws IOException{
+		String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\legend-smhi-opendata.txt";
+		List<String> fileData = Files.readAllLines(Paths.get(myPath));
+		fileData = new LinkedList<>();
 
 		//TODO: Structure data and put it in appropriate data structure
-		try {
-			fileData = Files.readAllLines( //Ändra här för sökväg Albin!
-					new File("C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\smhi-opendata.csv").toPath(), Charset.forName("UTF-8"));
+		Scanner scanner = new Scanner(new File(myPath));
 
-		} catch (IOException e) {
-			throw new RuntimeException("fail reading the equaled value file.", e);
+		while (scanner.hasNext()){
+			String line = scanner.nextLine();
+
+			Scanner lineScanner = new Scanner(line);
+			lineScanner.useDelimiter("\",|\\\\n\"");
+			int index = 0;
+			while(lineScanner.hasNext()) {
+				String part = lineScanner.next();
+				fileData.add(index,part);
+				System.out.println(fileData.get(0));
+			}
+
+
+
+
 		}
+		scanner.close();
 
-		return fileData.stream()
-				.map(l -> Integer.valueOf(l))
-				.collect(Collectors.toList());
-		//DATE +
+
+
 	}
 	/**
 	 * Search for average temperature for all dates between the two dates (inclusive).
@@ -45,25 +56,26 @@ public class WeatherDataHandler {
 	 * 2000-01-01 average temperature: 0.42 degrees Celsius
 	 * 2000-01-02 average temperature: 2.26 degrees Celsius
 	 * 2000-01-03 average temperature: 2.78 degrees Celsius
-	 * 
-	 * @param dateFrom start date (YYYY-MM-DD) inclusive  
+	 *
+	 * @param dateFrom start date (YYYY-MM-DD) inclusive
 	 * @param dateTo end date (YYYY-MM-DD) inclusive
-	 * @return average temperature for each date, sorted by date  
+	 * @return average temperature for each date, sorted by date
 	 */
 	public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
 		//TODO: Implements method
+		
 		return null;
 	}
 	/**
-	 * Search for missing values between the two dates (inclusive) assuming there 
+	 * Search for missing values between the two dates (inclusive) assuming there
 	 * should be 24 measurement values for each day (once every hour). Result is
 	 * sorted by number of missing values (descending). When searching from
 	 * 2000-01-01 to 2000-01-03 the result should be:
 	 * 2000-01-02 missing 1 values
 	 * 2000-01-03 missing 1 values
 	 * 2000-01-01 missing 0 values
-	 * 
-	 * @param dateFrom start date (YYYY-MM-DD) inclusive  
+	 *
+	 * @param dateFrom start date (YYYY-MM-DD) inclusive
 	 * @param dateTo end date (YYYY-MM-DD) inclusive
 	 * @return dates with missing values together with number of missing values for each date, sorted by number of missing values (descending)
 	 */
@@ -75,10 +87,10 @@ public class WeatherDataHandler {
 	 * Search for percentage of approved values between the two dates (inclusive).
 	 * When searching from 2000-01-01 to 2000-01-03 the result should be:
 	 * Approved values between 2000-01-01 and 2000-01-03: 32.86 %
-	 * 
-	 * @param dateFrom start date (YYYY-MM-DD) inclusive  
+	 *
+	 * @param dateFrom start date (YYYY-MM-DD) inclusive
 	 * @param dateTo end date (YYYY-MM-DD) inclusive
-	 * @return period and percentage of approved values for the period  
+	 * @return period and percentage of approved values for the period
 	 */
 	public List<String> approvedValues(LocalDate dateFrom, LocalDate dateTo) {
 		//TODO: Implements method
