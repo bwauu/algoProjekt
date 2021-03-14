@@ -21,29 +21,56 @@ public class WeatherDataHandler {
 	 * @return
 	 */
 	public void loadData(String filePath) throws IOException{
-		String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\legend-smhi-opendata.txt";
+		String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\" + filePath;
 		List<String> fileData = Files.readAllLines(Paths.get(myPath));
-		fileData = new LinkedList<>();
+		Map map = new HashMap<String,List<String>>();
+
+
 
 		//TODO: Structure data and put it in appropriate data structure
+		int index = 0;
 		Scanner scanner = new Scanner(new File(myPath));
 
 		while (scanner.hasNext()){
 			String line = scanner.nextLine();
 
 			Scanner lineScanner = new Scanner(line);
-			lineScanner.useDelimiter("\",|\\\\n\"");
-			int index = 0;
-			while(lineScanner.hasNext()) {
-				String part = lineScanner.next();
-				fileData.add(index,part);
-				System.out.println(fileData.get(0));
+			lineScanner.useDelimiter(";");
+
+			String[] arrOfStr = line.split(";", 3);
+			String lineToString = line.toString();
+
+			for (String item : ) {
+				String yearAndDate = arrOfStr[0];
+				String time = arrOfStr[1];
+				String degree = arrOfStr[2];
+
+
+				fileData.add(index, "\r\n" + arrOfStr[index]);
+
+				fileData.get(4);
 			}
+			index++;
+
+
+			/*
+			while(lineScanner.hasNext()) {
+				String part1 = lineScanner.next();
+
+				fileData.add(index,part1);
+
+
+
+			}
+
+			 */
+
 
 
 
 
 		}
+		System.out.println(fileData.get(2));
 		scanner.close();
 
 
