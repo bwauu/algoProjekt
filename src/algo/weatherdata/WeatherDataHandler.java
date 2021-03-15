@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class WeatherDataHandler {
     Demo demo = new Demo();
-
+	Map dataHodler = new HashMap<LocalDate, LinkedList<List<String>>>();
     /**
      * Load weather data from file.
      *
@@ -21,42 +21,46 @@ public class WeatherDataHandler {
      * @throws IOException if there is a problem while reading the file
      */
     public void loadData(String filePath) throws IOException {
-        String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\" + filePath;
-        List<String> fileData = Files.readAllLines(Paths.get(myPath));
-		Map dataHodler = new HashMap<Integer, LinkedList>();
-				//TODO: Structure data and put it in appropriate data structure
-        Scanner scanner = new Scanner(new File(myPath));
 
-		int index = 0;
+		String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\" + filePath;
+		List<String> fileData = Files.readAllLines(Paths.get(myPath));
+		//TODO: Structure data and put it in appropriate data structure
+		Scanner scanner = new Scanner(new File(myPath));
+
+		int counter = 0;
 		while (scanner.hasNext()) {
 
-			for (String fileDatum : fileData) {
+			for (String wholeLine : fileData) {
 				String line = scanner.nextLine();
 				String[] array = line.split("\\;", 4);
 				Scanner lineScanner = new Scanner(line);
 				lineScanner.useDelimiter(";");
-				String date = array[0];
-
-				//Set<Integer> keySet= map.keySet();
-				dataHodler.put(index,fileDatum);
-				index++;
-				/*
-				String date = array[0];
 
 				String time = array[1];
 				String degrees = array[2];
 				String approval = array[3];
+				String date = array[0].toString();
+				LocalDate localDate = LocalDate.parse(date);
+				time = array[0];
+
+				//System.out.println(localDate);
+
+
+				//Set<Integer> keySet= map.keySet();
+				dataHodler.put(localDate,wholeLine);
+				counter++;
+				/*
+
 
 				 */
 
+				System.out.println(dataHodler.get(localDate));
 			}
-
 
 
 
 		}
 
-		System.out.println(dataHodler.get(0));
 		scanner.close();
 	}
 
@@ -75,7 +79,6 @@ public class WeatherDataHandler {
      */
     public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
         //TODO: Implements method
-
 
         return null;
     }
