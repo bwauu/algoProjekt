@@ -34,8 +34,7 @@ public class WeatherDataHandler {
 
 		while (scanner.hasNext()){
 			String line = scanner.nextLine();
-			String[] array = line.split("\\;",3);
-			System.out.println(array[index]);
+			String[] array = line.split("\\;",4);
 			Scanner lineScanner = new Scanner(line);
 			lineScanner.useDelimiter(";");
 
@@ -45,18 +44,21 @@ public class WeatherDataHandler {
 			String date = array[0];
 			String time = array[1];
 			String degrees = array[2];
-
+			String approval = array[3];
+			if(index == 5) {
+				System.out.println(map.get(5));
+			}
 
 			while(!done) {
 
 				fileData.add(index,line);
 				map.put(index,line);
+				index++;
 
 				done = true;
 
 			}
 
-			index++;
 		}
 
 		scanner.close();
