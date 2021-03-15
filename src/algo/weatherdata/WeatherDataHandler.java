@@ -12,7 +12,7 @@ import java.util.*;
  * Retrieves temperature data from a weather station file.
  */
 public class WeatherDataHandler {
-	Dictionary dictionary = new Dictionary();
+	Demo demo = new Demo();
 	/**
 	 * Load weather data from file.
 	 *
@@ -23,8 +23,9 @@ public class WeatherDataHandler {
 	public void loadData(String filePath) throws IOException{
 		String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\" + filePath;
 		List<String> fileData = Files.readAllLines(Paths.get(myPath));
-		Map map = new HashMap<String,List<String>>();
-		map.put(0,fileData);
+		Map<Integer,Demo> map=new HashMap<Integer, Demo>();
+
+
 
 
 
@@ -38,14 +39,16 @@ public class WeatherDataHandler {
 			Scanner lineScanner = new Scanner(line);
 			lineScanner.useDelimiter(";");
 
+			System.out.println(map.toString() );
 			boolean done = false;
 
 			String date = array[0];
-			dictionary.setYearAndDate(date);
+
 			String time = array[1];
 			String degrees = array[2];
 			String approval = array[3];
-			System.out.println(dictionary.getYearAndDate());
+
+
 
 		}
 
