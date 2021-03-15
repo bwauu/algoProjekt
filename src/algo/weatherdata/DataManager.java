@@ -6,5 +6,5 @@ public class DataManager {
     private String time;
     private String degrees;
 
-
+//hej det här är ny class
 }
