@@ -1,10 +1,16 @@
 package algo.weatherdata;
 
+import java.awt.*;
+import java.util.LinkedHashMap;
+
 public class DataManager {
 
-    Map<>
+
     private String yearAndDate;
     private String time;
-    private int degrees;
+    private int temperature;
+    private String approval;
+
+
 
 }

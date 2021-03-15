@@ -12,7 +12,7 @@ import java.util.*;
  * Retrieves temperature data from a weather station file.
  */
 public class WeatherDataHandler {
-
+	Dictionary dictionary = new Dictionary();
 	/**
 	 * Load weather data from file.
 	 *
@@ -40,23 +40,13 @@ public class WeatherDataHandler {
 
 			boolean done = false;
 
-
 			String date = array[0];
+			dictionary.setYearAndDate(date);
 			String time = array[1];
 			String degrees = array[2];
 			String approval = array[3];
-			if(index == 5) {
-				System.out.println(map.get(5));
-			}
+			System.out.println(dictionary.getYearAndDate());
 
-			while(!done) {
-
-				map.put(index,List.of());
-				index++;
-
-				done = true;
-
-			}
 		}
 
 		scanner.close();
