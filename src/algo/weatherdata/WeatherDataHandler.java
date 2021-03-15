@@ -51,14 +51,12 @@ public class WeatherDataHandler {
 
 			while(!done) {
 
-				fileData.add(index,line);
-				map.put(index,line);
+				map.put(index,List.of());
 				index++;
 
 				done = true;
 
 			}
-
 		}
 
 		scanner.close();
