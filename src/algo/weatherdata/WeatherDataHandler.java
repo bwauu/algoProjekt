@@ -24,6 +24,7 @@ public class WeatherDataHandler {
 		String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\" + filePath;
 		List<String> fileData = Files.readAllLines(Paths.get(myPath));
 		Map map = new HashMap<String,List<String>>();
+		map.put(0,fileData);
 
 
 
@@ -33,48 +34,32 @@ public class WeatherDataHandler {
 
 		while (scanner.hasNext()){
 			String line = scanner.nextLine();
-
+			String[] array = line.split("\\;",3);
+			System.out.println(array[index]);
 			Scanner lineScanner = new Scanner(line);
 			lineScanner.useDelimiter(";");
 
-			String[] arrOfStr = line.split(";", 3);
-			String lineToString = line.toString();
-
-			for (String item : ) {
-				String yearAndDate = arrOfStr[0];
-				String time = arrOfStr[1];
-				String degree = arrOfStr[2];
+			boolean done = false;
 
 
-				fileData.add(index, "\r\n" + arrOfStr[index]);
+			String date = array[0];
+			String time = array[1];
+			String degrees = array[2];
 
-				fileData.get(4);
+
+			while(!done) {
+
+				fileData.add(index,line);
+				map.put(index,line);
+
+				done = true;
+
 			}
+
 			index++;
-
-
-			/*
-			while(lineScanner.hasNext()) {
-				String part1 = lineScanner.next();
-
-				fileData.add(index,part1);
-
-
-
-			}
-
-			 */
-
-
-
-
-
 		}
-		System.out.println(fileData.get(2));
+
 		scanner.close();
-
-
-
 	}
 	/**
 	 * Search for average temperature for all dates between the two dates (inclusive).
@@ -90,9 +75,12 @@ public class WeatherDataHandler {
 	 */
 	public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
 		//TODO: Implements method
-		
+
+
 		return null;
 	}
+
+
 	/**
 	 * Search for missing values between the two dates (inclusive) assuming there
 	 * should be 24 measurement values for each day (once every hour). Result is
