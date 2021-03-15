@@ -25,10 +25,6 @@ public class WeatherDataHandler {
 		List<String> fileData = Files.readAllLines(Paths.get(myPath));
 		Map<Integer,Demo> map=new HashMap<Integer, Demo>();
 
-
-
-
-
 		//TODO: Structure data and put it in appropriate data structure
 		int index = 0;
 		Scanner scanner = new Scanner(new File(myPath));
@@ -39,14 +35,17 @@ public class WeatherDataHandler {
 			Scanner lineScanner = new Scanner(line);
 			lineScanner.useDelimiter(";");
 
-			System.out.println(map.toString() );
-			boolean done = false;
+			//Set<Integer> keySet= map.keySet();
 
 			String date = array[0];
 
 			String time = array[1];
 			String degrees = array[2];
 			String approval = array[3];
+
+			for (Map.Entry<Integer, Demo> entry : map.entrySet()) {
+				System.out.println(entry.getKey() + "/" + entry.getValue());
+			}
 
 
 

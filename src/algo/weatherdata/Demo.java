@@ -62,13 +62,13 @@ class Demo {
     public void setApproval(Boolean approval) {
         this.approval = approval;
     }
-
+    /*
     @Override
     public String toString() {
         return "Demo [key=" + key + ", date=" + date
                 + ", time=" + time
                 + ", temparture=" + temperature + ", approval=" + approval + "]";
     }
-
+    */
 
 }
