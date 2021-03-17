@@ -43,17 +43,9 @@ public class WeatherDataHandler {
 				LocalDate localDate = LocalDate.parse(date);
 				time = array[0];
 
-				//System.out.println(localDate);
-
-
-				//Set<Integer> keySet= map.keySet();
 				dataHodler.put(localDate,wholeLine);
-				counter++;
-				/*
 
-
-				 */
-
+				// Printar ut all datum
 				System.out.println(dataHodler.get(localDate));
 			}
 
@@ -80,11 +72,18 @@ public class WeatherDataHandler {
     public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
         //TODO: Implements method
 
-        return null;
+
+
+		if(dataHodler.equals(dateFrom)){
+
+			return Collections.singletonList(dataHodler.get(dateFrom).toString());
+		}
+		else return Collections.singletonList(dataHodler.get(dateTo).toString());
     }
 
 
-    /**
+
+	/**
      * Search for missing values between the two dates (inclusive) assuming there
      * should be 24 measurement values for each day (once every hour). Result is
      * sorted by number of missing values (descending). When searching from
