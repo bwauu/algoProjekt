@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Retrieves temperature data from a weather station file.
@@ -71,10 +72,15 @@ public class WeatherDataHandler {
      */
     public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
         //TODO: Implements method
+		int index = 0;
+		LocalDate startDate = LocalDate.now();
+		dateTo = startDate.plusMonths(2);
 
+		List<LocalDate> listOfDates = startDate.datesUntil(dateTo).collect(Collectors.toList());
 
-
+		System.out.println(listOfDates.toString());
 		if(dataHodler.equals(dateFrom)){
+
 
 			return Collections.singletonList(dataHodler.get(dateFrom).toString());
 		}
