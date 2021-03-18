@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
  * Retrieves temperature data from a weather station file.
  */
 public class WeatherDataHandler {
-    Demo demo = new Demo();
-	Map dataHodler = new HashMap<LocalDate, LinkedList<List<String>>>();
+    WeatherBook weatherBook = new WeatherBook();
+	NavigableMap<LocalDate,List> /*LinkedList<List<String>>> */ dataHodler = new TreeMap<>();
     /**
      * Load weather data from file.
      *
@@ -23,7 +23,7 @@ public class WeatherDataHandler {
      */
     public void loadData(String filePath) throws IOException {
 
-		String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\" + filePath;
+		String myPath = "C:\\Users\\albin\\Desktop\\algoProjekt\\src\\" + filePath;
 		List<String> fileData = Files.readAllLines(Paths.get(myPath));
 		//TODO: Structure data and put it in appropriate data structure
 		Scanner scanner = new Scanner(new File(myPath));
@@ -38,23 +38,28 @@ public class WeatherDataHandler {
 				lineScanner.useDelimiter(";");
 
 				String time = array[1];
-				String degrees = array[2];
+				double degrees = Double.parseDouble(array[2]);
 				String approval = array[3];
 				String date = array[0].toString();
 				LocalDate localDate = LocalDate.parse(date);
 				time = array[0];
 
-				dataHodler.put(localDate,wholeLine);
+				dataHodler.put(localDate, List.of(time,degrees,approval));
 
+				weatherBook.setDate(localDate);
+				weatherBook.setTime(time);
+				weatherBook.setDegree(degrees);
+				weatherBook.setApproved(approval);
 				// Printar ut all datum
-				System.out.println(dataHodler.get(localDate));
-			}
+			//	System.out.println(dataHodler.get(localDate));
 
+			}
 
 
 		}
 
 		scanner.close();
+
 	}
 
 
@@ -71,20 +76,46 @@ public class WeatherDataHandler {
      * @return average temperature for each date, sorted by date
      */
     public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
+
+
+
+NavigableMap<LocalDate, List> subMap = dataHodler.subMap(dateFrom, true, dateTo, true);
+
+		System.out.println(subMap.values());
+
+	//	System.out.println(weatherBook.getDate().datesUntil(dateTo));
+
+	//	System.out.println(dataHodler.get(dateFrom.datesUntil(dateTo).collect(Collectors.toList())));
+
+
+	//	System.out.println(dataHodler.get(dateFrom.datesUntil(dateTo)) + " till " + dataHodler.get(dateTo));
+
+			for (LocalDate date = dateFrom; date.isBefore(dateTo); date = dateFrom.plusDays(1)) {
+				if (date.equals(dataHodler.get(date))) {
+					System.out.println(dataHodler.values());
+				}
+			}
+
+
         //TODO: Implements method
 		int index = 0;
+
+
 		LocalDate startDate = LocalDate.now();
 		dateTo = startDate.plusMonths(2);
 
 		List<LocalDate> listOfDates = startDate.datesUntil(dateTo).collect(Collectors.toList());
 
-		System.out.println(listOfDates.toString());
+	//	System.out.println(listOfDates.toString());
+
 		if(dataHodler.equals(dateFrom)){
 
 
 			return Collections.singletonList(dataHodler.get(dateFrom).toString());
 		}
 		else return Collections.singletonList(dataHodler.get(dateTo).toString());
+
+
     }
 
 
