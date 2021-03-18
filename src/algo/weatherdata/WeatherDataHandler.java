@@ -1,8 +1,9 @@
 package algo.weatherdata;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
@@ -12,8 +13,31 @@ import java.util.stream.Collectors;
  * Retrieves temperature data from a weather station file.
  */
 public class WeatherDataHandler {
-    WeatherBook weatherBook = new WeatherBook();
-	NavigableMap<LocalDate,List> /*LinkedList<List<String>>> */ dataHodler = new TreeMap<>();
+    private static final String COMMA_DELIMITER = ";";
+
+    public List<WeatherBook> getRecords() {
+        return records;
+    }
+
+    List<WeatherBook> records;
+
+    {
+        records = new ArrayList<>();
+    }
+
+    NavigableMap<LocalDate, List> /*LinkedList<List<String>>> */dataHodler = new TreeMap<>();
+    Map x = new TreeMap();
+
+    public static WeatherBook createBook(String[] metadata) {
+        String date = metadata[0];
+        String time = metadata[1];
+        String degree = metadata[2];
+        String approved = metadata[3];
+
+        // create and return book of this metadata
+        return new WeatherBook(date, time, degree, approved);
+    }
+
     /**
      * Load weather data from file.
      *
@@ -21,46 +45,41 @@ public class WeatherDataHandler {
      * @return
      * @throws IOException if there is a problem while reading the file
      */
-    public void loadData(String filePath) throws IOException {
+    public List<WeatherBook> loadData(String filePath) throws IOException {
 
-		String myPath = "C:\\Users\\albin\\Desktop\\algoProjekt\\src\\" + filePath;
-		List<String> fileData = Files.readAllLines(Paths.get(myPath));
-		//TODO: Structure data and put it in appropriate data structure
-		Scanner scanner = new Scanner(new File(myPath));
+        String fileName = "smhi-opendata.csv";
+        String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\smhi-opendata.csv";
+        Path pathToFile = Paths.get(fileName);
+        //TODO: Structure data and put it in appropriate data structure
 
-		int counter = 0;
-		while (scanner.hasNext()) {
-
-			for (String wholeLine : fileData) {
-				String line = scanner.nextLine();
-				String[] array = line.split("\\;", 4);
-				Scanner lineScanner = new Scanner(line);
-				lineScanner.useDelimiter(";");
-
-				String time = array[1];
-				double degrees = Double.parseDouble(array[2]);
-				String approval = array[3];
-				String date = array[0].toString();
-				LocalDate localDate = LocalDate.parse(date);
-				time = array[0];
-
-				dataHodler.put(localDate, List.of(time,degrees,approval));
-
-				weatherBook.setDate(localDate);
-				weatherBook.setTime(time);
-				weatherBook.setDegree(degrees);
-				weatherBook.setApproved(approval);
-				// Printar ut all datum
-			//	System.out.println(dataHodler.get(localDate));
-
-			}
+        try (BufferedReader br = Files.newBufferedReader(Path.of(myPath),
+                StandardCharsets.US_ASCII)) {
+            String line;
+            int index = 0;
+            while ((line = br.readLine()) != null) {
 
 
-		}
+                String[] attributes = line.split(";");
 
-		scanner.close();
 
-	}
+                WeatherBook weatherBook =   WeatherBook.createBook(attributes);
+
+                records.add(weatherBook);
+                System.out.println(records.get(index));
+
+                index++;
+                line = br.readLine();
+
+                // adding book into ArrayList
+
+
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        return records;
+    }
 
 
     /**
@@ -76,51 +95,23 @@ public class WeatherDataHandler {
      * @return average temperature for each date, sorted by date
      */
     public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
+        List<LocalDate> result = new LinkedList<>();
+        String dateFromStringed = dateFrom.toString();
 
 
+        ListIterator<WeatherBook> iteratior = records.listIterator();
+        while (iteratior.hasNext()) {
+            if (iteratior.next().toString().contains(dateFrom.toString())) {
+                System.out.println(iteratior.next());
+            }
 
-NavigableMap<LocalDate, List> subMap = dataHodler.subMap(dateFrom, true, dateTo, true);
+        }
 
-		System.out.println(subMap.values());
-
-	//	System.out.println(weatherBook.getDate().datesUntil(dateTo));
-
-	//	System.out.println(dataHodler.get(dateFrom.datesUntil(dateTo).collect(Collectors.toList())));
-
-
-	//	System.out.println(dataHodler.get(dateFrom.datesUntil(dateTo)) + " till " + dataHodler.get(dateTo));
-
-			for (LocalDate date = dateFrom; date.isBefore(dateTo); date = dateFrom.plusDays(1)) {
-				if (date.equals(dataHodler.get(date))) {
-					System.out.println(dataHodler.values());
-				}
-			}
-
-
-        //TODO: Implements method
-		int index = 0;
-
-
-		LocalDate startDate = LocalDate.now();
-		dateTo = startDate.plusMonths(2);
-
-		List<LocalDate> listOfDates = startDate.datesUntil(dateTo).collect(Collectors.toList());
-
-	//	System.out.println(listOfDates.toString());
-
-		if(dataHodler.equals(dateFrom)){
-
-
-			return Collections.singletonList(dataHodler.get(dateFrom).toString());
-		}
-		else return Collections.singletonList(dataHodler.get(dateTo).toString());
-
-
+        return null;
     }
 
 
-
-	/**
+    /**
      * Search for missing values between the two dates (inclusive) assuming there
      * should be 24 measurement values for each day (once every hour). Result is
      * sorted by number of missing values (descending). When searching from

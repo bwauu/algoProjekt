@@ -1,52 +1,41 @@
 package algo.weatherdata;
 
+import java.security.Key;
 import java.time.LocalDate;
 
 public class WeatherBook {
 
-    private LocalDate date;
+    public WeatherBook(String date, String time, String degree, String approved) {
+        this.date = date;
+        this.time = time;
+        this.degree = degree;
+        this.approved = approved;
+    }
+
+    private String date;
     private String time;
-    private double degree;
+    private String degree;
     private String approved;
 
-    public WeatherBook(LocalDate date, String time, double degree, String approved) {
-        this.date = date;
-        this.time = time;
-        this.degree = degree;
-        this.approved = approved;
+    public WeatherBook(Object attributes) {
+
     }
 
-    public LocalDate getDate() {
-        return date;
+
+    public static WeatherBook createBook(String[] metadata) {
+
+        String date = metadata[0];
+        String time = metadata[1];
+        String degree = metadata[2];
+        String approved = metadata[3];
+
+
+        // create and return book of this metadata
+        return new WeatherBook(date, time, degree,approved);
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
-    public String getTime() {
-        return time;
-    }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public double getDegree() {
-        return degree;
-    }
-
-    public void setDegree(double degree) {
-        this.degree = degree;
-    }
-
-    public String isApproved() {
-        return approved;
-    }
-
-    public void setApproved(String approved) {
-        this.approved = approved;
-    }
 
     @Override
     public String toString() {
