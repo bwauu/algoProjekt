@@ -63,7 +63,7 @@ public class WeatherDataHandler {
 
 
                 WeatherBook weatherBook =   WeatherBook.createBook(attributes);
-
+                //HELP US
                 records.add(weatherBook);
                 System.out.println(records.get(index));
 
