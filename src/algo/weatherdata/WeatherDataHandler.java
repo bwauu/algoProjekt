@@ -15,18 +15,11 @@ import java.util.stream.Collectors;
 public class WeatherDataHandler {
     private static final String COMMA_DELIMITER = ";";
 
-    public List<WeatherBook> getRecords() {
-        return records;
-    }
 
-    List<WeatherBook> records;
-
-    {
-        records = new ArrayList<>();
-    }
+    List<WeatherBook> records = new ArrayList<>();
 
     NavigableMap<LocalDate, List> /*LinkedList<List<String>>> */dataHodler = new TreeMap<>();
-    Map x = new TreeMap();
+
 
     public static WeatherBook createBook(String[] metadata) {
         String date = metadata[0];
@@ -62,18 +55,16 @@ public class WeatherDataHandler {
                 String[] attributes = line.split(";");
 
 
-                WeatherBook weatherBook =   WeatherBook.createBook(attributes);
+                WeatherBook weatherBook = WeatherBook.createBook(attributes);
                 //HELP US
                 records.add(weatherBook);
-                System.out.println(records.get(index));
-
                 index++;
-                line = br.readLine();
-
                 // adding book into ArrayList
 
 
             }
+            System.out.println(records.size());
+
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
