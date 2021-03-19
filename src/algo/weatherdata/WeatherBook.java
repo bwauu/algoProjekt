@@ -41,9 +41,7 @@ public class WeatherBook {
         return date;
     }
 
-    public static Demo createBook(LocalDate key, Integer value) {
-        return null;
-    }
+
 
 
     @Override

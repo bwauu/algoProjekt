@@ -38,19 +38,12 @@ public class WeatherDataHandler {
             int index = 0;
             while ((line = br.readLine()) != null) {
 
-
                 String[] attributes = line.split(";");
-
-
                 WeatherBook weatherBook = WeatherBook.createBook(attributes);
-                //HELP US
 
                 records.add(weatherBook.toString());
                 index++;
                 System.out.println(weatherBook.getDate());
-            // adding book into ArrayList
-
-
 
             }
             System.out.println("Total object data stored inside my created object records is " + records.size());
