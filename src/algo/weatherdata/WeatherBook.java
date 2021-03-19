@@ -2,8 +2,11 @@ package algo.weatherdata;
 
 import java.security.Key;
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Set;
 
 public class WeatherBook {
+    private WeatherBook weatherBook;
 
     public WeatherBook(String date, String time, String degree, String approved) {
         this.date = date;
@@ -34,7 +37,13 @@ public class WeatherBook {
         return new WeatherBook(date, time, degree,approved);
     }
 
+    public String getDate() {
+        return date;
+    }
 
+    public static Demo createBook(LocalDate key, Integer value) {
+        return null;
+    }
 
 
     @Override

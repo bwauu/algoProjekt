@@ -7,29 +7,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Retrieves temperature data from a weather station file.
  */
 public class WeatherDataHandler {
-    private static final String COMMA_DELIMITER = ";";
 
 
-    List<WeatherBook> records = new ArrayList<>();
 
-    NavigableMap<LocalDate, List> /*LinkedList<List<String>>> */dataHodler = new TreeMap<>();
+    List<String> records = new ArrayList<>();
 
-
-    public static WeatherBook createBook(String[] metadata) {
-        String date = metadata[0];
-        String time = metadata[1];
-        String degree = metadata[2];
-        String approved = metadata[3];
-
-        // create and return book of this metadata
-        return new WeatherBook(date, time, degree, approved);
-    }
 
     /**
      * Load weather data from file.
@@ -38,7 +25,7 @@ public class WeatherDataHandler {
      * @return
      * @throws IOException if there is a problem while reading the file
      */
-    public List<WeatherBook> loadData(String filePath) throws IOException {
+    public List<String> loadData(String filePath) throws IOException {
 
         String fileName = "smhi-opendata.csv";
         String myPath = "C:\\Users\\wiapp\\IdeaProjects\\algoProjekt\\src\\smhi-opendata.csv";
@@ -57,13 +44,16 @@ public class WeatherDataHandler {
 
                 WeatherBook weatherBook = WeatherBook.createBook(attributes);
                 //HELP US
-                records.add(weatherBook);
+
+                records.add(weatherBook.toString());
                 index++;
-                // adding book into ArrayList
+                System.out.println(weatherBook.getDate());
+            // adding book into ArrayList
+
 
 
             }
-            System.out.println(records.size());
+            System.out.println("Total object data stored inside my created object records is " + records.size());
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -86,17 +76,7 @@ public class WeatherDataHandler {
      * @return average temperature for each date, sorted by date
      */
     public List<String> averageTemperatures(LocalDate dateFrom, LocalDate dateTo) {
-        List<LocalDate> result = new LinkedList<>();
-        String dateFromStringed = dateFrom.toString();
-
-
-        ListIterator<WeatherBook> iteratior = records.listIterator();
-        while (iteratior.hasNext()) {
-            if (iteratior.next().toString().contains(dateFrom.toString())) {
-                System.out.println(iteratior.next());
-            }
-
-        }
+        Map<LocalDate,String> x = new HashMap<>();
 
         return null;
     }
