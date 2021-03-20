@@ -1,6 +1,5 @@
 package algo.weatherdata;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -22,7 +21,7 @@ public class WeatherDataUI {
 	/**
 	 * Start Weather Data UI.
 	 */
-	public void startUI() throws IOException {
+	public void startUI() {
 		_scanner = new Scanner(System.in);
         int input;
         boolean quit = false;
@@ -105,7 +104,7 @@ public class WeatherDataUI {
      * Query user for two dates and present the average temperature for all dates
      * in the period, sorted by date (ascending).
      */
-    private void averageTemperature() throws IOException {
+    private void averageTemperature() {
         System.out.println("Calculate average temperature for dates");
     	System.out.print("Start date (will be included)\n");
         LocalDate dateFrom = getDateInput();

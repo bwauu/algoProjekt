@@ -1,35 +1,36 @@
 package algo.weatherdata;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+
+import java.util.ArrayList;
 
 public class WeatherLogic {
 
-public Map<LocalDate, LinkedList> mapcreater() throws IOException {
+    public double average(ArrayList n) {
 
-    String fileName = "smhi-opendata.csv";
+        double[] da = new double[n.size()];
 
-        return null;
-    }
+        for(int i = 0; i <da.length; i++) {
+            da[i] = (double) n.get(i);
+        }
 
 
+        double sum = 0;
 
-
-    public static int avarage (int[] n) {
-
-        int sum = 0;
-
-        for (int i : n) {
+        for (double i : da) {
             sum += i;
         }
 
-        return sum/n.length;
+
+
+        return sum/n.size();
     }
 
+    public int isMissing(ArrayList n) {
+
+        int totalMeaseure = 24;
+
+        return totalMeaseure - n.size();
+    }
 
 
 }
